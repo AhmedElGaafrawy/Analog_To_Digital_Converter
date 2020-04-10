@@ -15,12 +15,12 @@
 
 void adc (void*);
 volatile u8 adcRead;
+u8 a= 10;
+void* ptr= &a;
 int main ()
 {
-	u8 a= 15;
-	void*ptr=&a;
 	ADC_enuInit();
-	DDRB=0xff;
+ 	DDRB=0xff;
 	DDRA=0x00;
 	GIE_enuEnable();
 	ADC_enuEnable();
@@ -28,10 +28,10 @@ int main ()
 	ADC_enuEnableInterrupt();
 	ADC_enuDisableTrigger();
 	ADC_enuCallBackFunction(adc ,ptr);
+		//ADC_enuStartConversion();
 	while (1)
 	{
 		ADC_enuStartConversion();
-		//ADC_enuStartConversion();
 		//ADC_enuPollingOnFlag();
 
 	}
@@ -43,10 +43,11 @@ void adc (void*f)
 {
 	u8 * pty;
 	pty=(u8*)f;
-	ADC_enuReadHighRegister(&adcRead);
-	PORTB=adcRead;
-	//PORTB=*pty;
+	//ADC_enuReadHighRegister(&adcRead);
+	//PORTB=adcRead;
+	PORTB=*pty;
 	//ADC_enuStartConversion();
 	//PORTB|=(1<<7);
+	(*pty)++;
 }
 

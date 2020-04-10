@@ -12,7 +12,7 @@
 #include "ADC_priv.h"
 #include "ADC_config.h"
 #include "GIE_priv.h"
-#include <util/delay.h>
+
 
 void (*ADC_PF_CallBack) (void*) = NULL;
 void* ADC_PvoidParameter = NULL ;
@@ -325,7 +325,7 @@ ERROR_STATES ADC_enuSelectChannel 		(u8 Copy_u8Channel)
 /**	Functionality   : Reading the highest 8 bit of ADC resolution register. **/
 /*****************************************************************************/
 /*****************************************************************************/
-ERROR_STATES ADC_enuReadHighRegister	(u8 * Copy_Pu8ADC_Value)
+ERROR_STATES ADC_enuReadHighRegister	(volatile u8 * Copy_Pu8ADC_Value)
 {
 	ERROR_STATES error_enuState =ES_NOT_OK;
 
@@ -358,7 +358,7 @@ ERROR_STATES ADC_enuReadHighRegister	(u8 * Copy_Pu8ADC_Value)
 /**	Functionality   : Reading All ADC resolution register.                  **/
 /*****************************************************************************/
 /*****************************************************************************/
-ERROR_STATES ADC_enuReadADC				(u16 * Copy_Pu16ADC_Value)
+ERROR_STATES ADC_enuReadADC				(volatile u16 * Copy_Pu16ADC_Value)
 {
 	ERROR_STATES error_enuState =ES_NOT_OK;
 
@@ -397,7 +397,7 @@ ERROR_STATES ADC_enuCallBackFunction 	( void (*Copy_PF_CallBack)(void*)  , void*
 	if (ADC_PF_CallBack == NULL)
 	{
 		ADC_PF_CallBack = Copy_PF_CallBack;
-		if (Copy_PvoidParameter == NULL)
+		if (ADC_PvoidParameter == NULL)
 			ADC_PvoidParameter = Copy_PvoidParameter;
 	}
 	return error_enuState;
