@@ -394,12 +394,9 @@ ERROR_STATES ADC_enuCallBackFunction 	( void (*Copy_PF_CallBack)(void*)  , void*
 {
 	ERROR_STATES error_enuState =ES_NOT_OK;
 
-	if (ADC_PF_CallBack == NULL)
-	{
-		ADC_PF_CallBack = Copy_PF_CallBack;
-		if (ADC_PvoidParameter == NULL)
-			ADC_PvoidParameter = Copy_PvoidParameter;
-	}
+	ADC_PF_CallBack = Copy_PF_CallBack;
+	ADC_PvoidParameter = Copy_PvoidParameter;
+			
 	return error_enuState;
 }
 /*****************************************************************************/
